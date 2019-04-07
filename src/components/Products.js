@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Table } from 'react-materialize';
-import { Container } from 'react-bootstrap';
+import { Container, Row, Col } from 'react-bootstrap';
 import * as API from '../API';
 import Axios from 'axios';
 
@@ -34,6 +34,27 @@ class Products extends Component {
 
         <div>
             This is the Products component.
+
+            <div>
+
+                <h3>Selected Product Area</h3>
+                <Container>
+                    <Row>
+                        <Col className="card-holder" md={{ span: 4, offset: 4 }}>
+                            Card Goes Here
+
+                            <div className="card">
+                            
+                                <div className="card-image"></div>
+
+                            </div>
+
+
+                        </Col>
+                    </Row>
+                </Container>
+
+            </div>
 
             <div className="products-table">
                 <Container>

@@ -31,3 +31,31 @@
     transform: rotate(360deg);
   }
 }
+
+.card-holder {
+  background-color: aquamarine;
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.card {
+  height: 80%;
+  width: 80%;
+  background-color: turquoise;
+  align-items: center;
+}
+
+.card-image {
+  height: 50%;
+  width: 50%;
+  background-color: plum;
+}
+
+.products-table {
+  cursor: pointer;
+}
+
+

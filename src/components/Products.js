@@ -1,33 +1,49 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import { Table } from 'react-materialize';
+import * as API from '../API';
+import Axios from 'axios';
 
 class Products extends Component {
 
-    //  constructor(props) {
-        
-    //  }
-
-    componentDidMount() {
-        axios.get('https://jkq0dchnp0.execute-api.eu-west-1.amazonaws.com/dev/get-json-data')
-        .then(res => {
-            this.setState({ data: res.data });
-        })
-        .catch((error) => {
-            console.log(error);
-        });
+    
+    state = {
+        products: []
     }
+    
+
+    // async componentDidMount() {
+    //     const response = await Axios.get('https://jkq0dchnp0.execute-api.eu-west-1.amazonaws.com/dev/get-json-data')
+    //     const products = response.data
+    //     this.setState({products: products}, () => console.log(response.data, 'res'))
+    // }
+
+
+    componentDidMount () {
+         Axios.get(`${"https://cors-anywhere.herokuapp.com/"}https://jkq0dchnp0.execute-api.eu-west-1.amazonaws.com/dev/get-json-data`).then(response => {
+               this.setState({
+                   products: response.data
+               })
+               
+            })
+       
+    }
+    
 
 
 
   render() {
+
+    const {products} = this.state;
+
+    
+    
       return (
 
         <div>
             This is the Products component.
-            {/* {console.log(this.state.data.products[0].title, 'hello')} */}
 
             <div className="products-table">
+
                 <Table>
                     <thead>
                         <tr>
@@ -50,9 +66,34 @@ class Products extends Component {
                     </thead>
 
                     <tbody>
-                        
-                        
-                        
+                    
+                            <tr>
+
+                                {
+                                   
+                                    Object.keys(products).map(product => {
+                                       return  (
+                                        <div>
+                                       <td key={product.id}>{product.title}</td>
+                                       <td key={product.id}>{product.id}</td>
+                                       <td key={product.id}>{product.vendor}</td>
+                                       <td key={product.id}>{product.handle}</td>
+                                       </div>
+                                    )
+                                    })
+                                }
+                              
+                                {/* <td>hello</td>
+                            
+                            
+                                <td>hello</td>
+                            
+                            
+                                <td>hello</td>
+                            
+                            
+                                <td>hello</td> */}
+                            </tr>
 
                         
                     </tbody>

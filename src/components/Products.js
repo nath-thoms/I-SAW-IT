@@ -9,7 +9,11 @@ class Products extends Component {
     
     state = {
         products: [],
-        currentProduct: []
+        currentProduct: [],
+        productCardVisible: false,
+        isClicked: false,
+        isSorted: false,
+        type: []
     }
     
 
@@ -22,22 +26,39 @@ class Products extends Component {
     handleRowDetails = id => {
       const filteredProduct =  this.state.products.filter(product => product.id === id)
         this.setState({
-            currentProduct: filteredProduct
+            currentProduct: filteredProduct,
+            productCardVisible: true
         }, () => console.log(filteredProduct[0].title, 'filter'))
     }
+
+    handleSort = () => {
+        const filteredColumn = this.state.products.map(product => product.title);
+        this.setState({
+            isClicked: !this.state.isClicked,
+            type: this.state.isClicked ? filteredColumn.sort : filteredColumn.sort().reverse(),
+            isSorted: true
+        })
+        console.log(filteredColumn.sort().reverse(), 'column');
+    }
+
   render() {
 
-    const {products} = this.state;
+    const {products, type, isSorted} = this.state;
     console.log(products);
 
       return (
 
         <div>
-            This is the Products component.
+            This is the Products component
 
             <div>
 
                 <h3>Selected Product Area</h3>
+
+
+
+                { this.state.productCardVisible ? 
+                
                 <Container>
                     <Row>
                         <Col className="card-holder" md={{ span: 4, offset: 4 }}>
@@ -45,7 +66,16 @@ class Products extends Component {
 
                             <div className="card">
                             
-                                <div className="card-image"></div>
+                                <div className="card-image">
+                                    <img src={this.state.currentProduct[0].image.src} alt="product-img"/>
+                                </div>
+
+                                <div className="card-details">
+                                    <p>{this.state.currentProduct[0].title}</p>
+                                    <p>{this.state.currentProduct[0].product_type}</p>
+                                    <p>{this.state.currentProduct[0].vendor}</p>
+                                </div>
+
 
                             </div>
 
@@ -54,6 +84,11 @@ class Products extends Component {
                     </Row>
                 </Container>
 
+                : null
+            
+                }
+                
+
             </div>
 
             <div className="products-table">
@@ -61,10 +96,10 @@ class Products extends Component {
                     <Table>
                         <thead>
                             <tr>
-                                <th>
+                                <th  onClick={() => this.handleSort()}>
                                     Name
                                 </th>
-                                <th>
+                                <th onClick={() => this.handleSort()}>
                                     Product Type
                                 </th>
                                 <th>
@@ -84,11 +119,14 @@ class Products extends Component {
                                         products.map(product => (
                                             
                                             <tr key={product.id} onClick={() => this.handleRowDetails(product.id)}>
-                                                <td>{product.title}</td>
+                                            {
+                                                isSorted ? (<td>{type.title}</td>) : (<div><td>{product.title}</td>
                                                 <td>{product.product_type}</td>
                                                 <td>{product.options[0].values.toString().split(' ')}</td>
                                                 <td>{product.vendor}</td>
-                                                <td>{product.tags.split(',').slice(4, 9)}</td>
+                                                <td>{product.tags.split(',').slice(4, 9)}</td></div>)
+                                            }
+                                               
                                             </tr>
                                             
                                         ))

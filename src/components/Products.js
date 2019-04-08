@@ -9,7 +9,8 @@ class Products extends Component {
     products: [],
     currentProduct: [],
     productCardVisible: false,
-    isClicked: false
+    isClicked: false,
+    search: ''
   };
 
   async componentDidMount() {
@@ -71,15 +72,21 @@ class Products extends Component {
     });
   };
 
+  updateSearch = (event) => {
+    this.setState({search: event.target.value.substr(0, 20)});
+  }
+
   render() {
     const { products } = this.state;
+    let filteredProducts = this.state.products.filter(
+        (product) => {
+            return product.title.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1;
+        }
+    )
 
     return (
       <div>
-        This is the Products component
         <div>
-          <h3>Selected Product Area</h3>
-
           {this.state.productCardVisible ? (
             <Container>
               <Row>
@@ -106,6 +113,9 @@ class Products extends Component {
         </div>
         <div className="products-table">
           <Container>
+            <input type="text" placeholder="Search product name..."
+                value={this.state.search}
+                onChange={this.updateSearch} />
           <button
               className="btn btn-sm btn-primary text-capitalized"
               onClick={() => this.handleSort('title')}
@@ -136,7 +146,7 @@ class Products extends Component {
               </thead>
 
               <tbody>
-                {products.map(product => (
+                {filteredProducts.map(product => (
                   <tr
                     key={product.id}
                     onClick={() => this.handleRowDetails(product.id)}

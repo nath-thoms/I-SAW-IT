@@ -18,9 +18,9 @@ class App extends Component {
 
     return (
       <div className="App">
-        <header className="App-header">
+        {/* <header className="App-header">
           I Saw It First - Technical Test 
-        </header>
+        </header> */}
         
         <div className="Products-Component">
           <Products/>

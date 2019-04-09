@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Table } from "react-materialize";
 import { Container, Row, Col } from "react-bootstrap";
-import * as API from "../API";
 import Axios from "axios";
 
 class Products extends Component {
@@ -64,6 +63,7 @@ class Products extends Component {
         }
         return 0;
     }
+    return null;
     });
     
     this.setState({
@@ -77,7 +77,6 @@ class Products extends Component {
   }
 
   render() {
-    const { products } = this.state;
     let filteredProducts = this.state.products.filter(
         (product) => {
             return product.title.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1;

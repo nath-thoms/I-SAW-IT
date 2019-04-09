@@ -86,11 +86,11 @@ class Products extends Component {
     return (
       <div>
         <div>
+
           {this.state.productCardVisible ? (
             <Container>
               <Row>
                 <Col className="card-holder" md={{ span: 4, offset: 4 }}>
-                  Card Goes Here
                   <div className="card">
                     <div className="card-image">
                       <img

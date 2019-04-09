@@ -44,7 +44,7 @@
   height: 80%;
   width: 80%;
   align-items: center;
-  box-shadow: 3px 3px 5px 6px black;
+  box-shadow: 0 3px 3px 6px grey;
 }
 
 .card-image {
